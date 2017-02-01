@@ -1,0 +1,12 @@
+<a href="{% url 'open_src_projects:add_project' %}">Add a New Project</a>
+
+{% if latest_project_list %}
+    <ul>
+    {% for project in latest_project_list %}
+        <li><a href="{% url 'open_src_projects:detail' project.id %}">{{ project.project_name }}</a></li>
+        <p>{{ project.project_description }}</p>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No projects yet.</p>
+{% endif %}

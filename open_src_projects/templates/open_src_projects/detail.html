@@ -1,0 +1,23 @@
+<h1>{{ object.project_name }}</h1>
+<h2>{{ object.project_description }}</h2>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'open_src_projects:vote' object.id %}" method="post">
+{% csrf_token %}
+<input type="submit" value="Vote" />
+</form>
+
+<p>Num votes: {{ object.num_votes }} </p>
+
+<form action="{% url 'open_src_projects:add_comment' object.id %}" method="post">
+{% csrf_token %}
+Comment: <input type="text" name="comment_text" id="{{object.id}}" />
+
+<input type="submit" value="Add Comment" />
+</form>
+
+<p>Comments:</p>
+{% for c in object.comment_set.all %}
+   <li>{{ c.comment_text }}</li>
+{% endfor %}
